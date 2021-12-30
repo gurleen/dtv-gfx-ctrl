@@ -17,5 +17,9 @@ function updateBulk(payload) {
     })
 }
 
+export function casparEvent(action, item) {
+    socket.emit("casparcg", action, item)
+}
+
 socket.on("state-update", updateBulk)
 socket.emit("get-cache", updateBulk)

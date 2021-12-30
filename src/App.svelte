@@ -1,5 +1,4 @@
 <script>
-	import { store } from './store';
 	import Info from './panels/Info.svelte';
 	import Rundown from './panels/Rundown.svelte';
 </script>

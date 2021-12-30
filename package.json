@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "@rollup/plugin-json": "^4.1.0",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "sirv-cli": "^1.0.0",
     "socket.io-client": "^4.4.0"
   }
