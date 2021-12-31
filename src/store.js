@@ -5,7 +5,7 @@ export const store = writable({
     homeScore: 0
 })
 
-const socket = io("http://localhost:8080");
+const socket = io("http://192.168.1.161:8080");
 
 export function updateKey(key, value) {
     socket.emit("update-key", key, value);
@@ -17,8 +17,8 @@ function updateBulk(payload) {
     })
 }
 
-export function casparEvent(action, item) {
-    socket.emit("casparcg", action, item)
+export function casparEvent(action, item, layer) {
+    socket.emit("casparcg", action, item, parseInt(layer))
 }
 
 socket.on("state-update", updateBulk)

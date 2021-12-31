@@ -11,7 +11,7 @@
     $: pctComplete = timeRemaining / item.duration || 0
 
     function play() {
-        casparEvent("LOAD AND PLAY", item.key)
+        casparEvent("LOAD AND PLAY", item.key, item.layer)
         playing = true
         let diff = Date.now() + item.duration
         timer = setInterval(() => {
@@ -25,6 +25,7 @@
     }
 
     function clear() {
+        casparEvent("CLEAR", null, item.layer)
         clearInterval(timer)
         playing = false
         timeRemaining = 0
@@ -36,6 +37,7 @@
 </script>
 
 <main>
+    <p contenteditable="true" bind:innerHTML={item.layer}>{item.layer}</p>
     <p>{item.type.toUpperCase()}</p>
     <p class="name">{item.name}</p>
     <div class="spacer"></div>
@@ -55,7 +57,7 @@
         justify-content: start;
         padding-left: 10px;
         background-color: rgb(37, 44, 60);
-        width: 90%;
+        width: 98%;
         min-height: 50px;
     }
     

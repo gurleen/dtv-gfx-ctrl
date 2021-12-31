@@ -10,19 +10,28 @@
     let totalDuration = sumBy(item.items, (x) => x.duration)
     
     let timer = undefined
+    let timeout = undefined
     let timeRemaining = 0
     $: secondsRemaining = Math.floor(timeRemaining / 1000)
     $: millisecondsRemaining = timeRemaining % 1000
     $: pctComplete = timeRemaining / totalDuration || 0
 
     function queueItems(items) {
-        casparEvent("QUEUE", items[0].key)
+        casparEvent("QUEUE", items[0].key, item.layer)
         if(items.length > 1) {
-            setTimeout(queueItems, items[0].duration - 500, items.slice(1))
+            timeout = setTimeout(queueItems, items[0].duration - 1000, items.slice(1))
         }
         else if(items.length == 1) {
-            setTimeout(casparEvent, items[0].duration - 500, "QUEUE BLANK")
+            timeout = setTimeout(casparEvent, items[0].duration - 1000, "QUEUE BLANK", null, item.layer)
         }
+    }
+
+    export function cancelQueue() {
+        if(timeout === undefined) return
+        clearTimeout(timeout)
+        casparEvent("CLEAR", null, item.layer)
+        playing = false
+        clearInterval(timer)
     }
 
     function play() {
@@ -36,22 +45,18 @@
                playing = false
             }
         }, 100);
-        casparEvent("LOAD AND PLAY", item.items[0].key)
+        casparEvent("LOAD AND PLAY", item.items[0].key, item.layer)
         queueItems(item.items.slice(1))
     }
 
-    function clear() {
-        playing = false
-        casparEvent("BLANK")
-    }
-
     function toggle() {
-        playing? clear() : play()
+        playing? cancelQueue() : play()
     }
 </script>
 
 <main>
     <div class="row">
+        <p contenteditable="true" bind:innerHTML={item.layer}>{item.layer}</p>
         <p>{item.type.toUpperCase()}</p>
         <!-- svelte-ignore a11y-invalid-attribute -->
         <a href="#" on:click={() => showItems = !showItems} class="name">{item.name}</a>
@@ -83,7 +88,7 @@
         justify-content: start;
         padding-left: 10px;
         background-color: rgb(37, 44, 60);
-        width: 90%;
+        width: 98%;
         min-height: 50px;
     }
     

@@ -73,3 +73,7 @@ button:focus {
 	color: white;
 	background-color: green;
 }
+
+svelte-virtual-list-viewport {
+	width: 90%;
+}

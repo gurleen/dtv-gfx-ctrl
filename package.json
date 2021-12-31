@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "sirv public --no-clear --host=192.168.1.161"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -22,6 +22,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "sirv-cli": "^1.0.0",
-    "socket.io-client": "^4.4.0"
+    "socket.io-client": "^4.4.0",
+    "svelte-sortable-list": "^1.1.0"
   }
 }

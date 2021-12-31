@@ -14,11 +14,12 @@
     function load() {
         loadedOnce = true
         playing = false
-        casparEvent("CG ADD", item.key)
+        casparEvent("CG ADD", item.key, item.layer)
     }
 </script>
 
 <main>
+    <p contenteditable="true" bind:innerHTML={item.layer}>{item.layer}</p>
     <p>{item.type.toUpperCase()}</p>
     <p class="name">{item.name}</p>
     <div class="spacer"></div>
@@ -39,7 +40,7 @@
         justify-content: start;
         padding-left: 10px;
         background-color: rgb(37, 44, 60);
-        width: 90%;
+        width: 98%;
         min-height: 50px;
     }
     

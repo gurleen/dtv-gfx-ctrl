@@ -1,8 +1,15 @@
 <script>
     import { store } from '../store.js';
+
+    let time = new Date()
+
+    setInterval(() => {
+        time = new Date()
+    }, 500);
 </script>
 
 <main>
+    <h3>{time.toTimeString()}</h3>
     <h3>{$store.homeName} <span class="light">{$store.homeScore}</span> - <span class="light">{$store.awayScore}</span> {$store.awayName}</h3>
     <h4><span class="light">{$store.homeTO}</span> TIMEOUTS <span class="light">{$store.awayTO}</span></h4>
     <h3>{$store.period} - {$store.clock} - <span class="light">{$store.shotClock}</span></h3>
